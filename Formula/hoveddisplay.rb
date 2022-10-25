@@ -2,7 +2,7 @@ class Hoveddisplay < Formula
   desc "macOS command-line utility to configure main display"
   homepage "https://github.com/CryogenicPlanet/hoveddisplay"
   url "https://github.com/CryogenicPlanet/hoveddisplay/archive/refs/tags/v0.0.1.tar.gz"
-  sha256 "da0a5d73cc9c704c9e7ba9ee512fba5f8d3136979f2560ad25438608b84bbe27"
+  sha256 "2a577a6d75b9efb840751e16d7e4534e6df28361c67ffcb0970e3f2e74c8bfe6"
   license "MIT"
 
   depends_on xcode: [">= 11.2", :build]
