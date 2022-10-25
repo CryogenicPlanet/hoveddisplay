@@ -1,12 +1,10 @@
-import { ActionPanel, Detail, List, Action, Icon, Color, showToast, Toast, environment } from "@raycast/api";
+import { ActionPanel, Detail, List, Action, Icon, Color, showToast, Toast } from "@raycast/api";
 import { exec } from "child_process";
 import { useExec } from "@raycast/utils";
 
 import { z } from "zod";
 
-const userPath = environment.supportPath.split("/Library")[0];
-
-const cmdPath = `${userPath}/.local/bin/set-main-display`;
+const cmdPath = `/opt/homebrew/bin/hoveddisplay`;
 
 export const schema = z.array(
   z.object({
@@ -25,7 +23,7 @@ export const schema = z.array(
 
 function execPromise(command: string) {
   return new Promise(function (resolve, reject) {
-    exec(command, (error, stdout, stderr) => {
+    exec(command, (error, stdout) => {
       if (error) {
         reject(error);
         return;
@@ -87,8 +85,7 @@ function SetMainDisplay() {
       // the data will automatically be rolled back to its previous value
       toast.style = Toast.Style.Failure;
       toast.title = "Could not update main display";
-      // @ts-expect-error
-      toast.message = err.message;
+      toast.message = (err as Error).message;
     }
   };
 

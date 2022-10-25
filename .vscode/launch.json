@@ -1,40 +1,58 @@
 {
-    "configurations": [
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug src-swift (src-swift)",
-            "program": "${workspaceFolder:set-main-display}/src-swift/.build/debug/src-swift",
-            "args": [],
-            "cwd": "${workspaceFolder:set-main-display}/src-swift",
-            "preLaunchTask": "swift: Build Debug src-swift (src-swift)"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Release src-swift (src-swift)",
-            "program": "${workspaceFolder:set-main-display}/src-swift/.build/release/src-swift",
-            "args": [],
-            "cwd": "${workspaceFolder:set-main-display}/src-swift",
-            "preLaunchTask": "swift: Build Release src-swift (src-swift)"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug set-main-display (src-swift)",
-            "program": "${workspaceFolder:set-main-display}/src-swift/.build/debug/set-main-display",
-            "args": [],
-            "cwd": "${workspaceFolder:set-main-display}/src-swift",
-            "preLaunchTask": "swift: Build Debug set-main-display (src-swift)"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Release set-main-display (src-swift)",
-            "program": "${workspaceFolder:set-main-display}/src-swift/.build/release/set-main-display",
-            "args": [],
-            "cwd": "${workspaceFolder:set-main-display}/src-swift",
-            "preLaunchTask": "swift: Build Release set-main-display (src-swift)"
-        }
-    ]
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug src-swift (src-swift)",
+      "program": "${workspaceFolder:set-main-display}/src-swift/.build/debug/src-swift",
+      "args": [],
+      "cwd": "${workspaceFolder:set-main-display}/src-swift",
+      "preLaunchTask": "swift: Build Debug src-swift (src-swift)"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Release src-swift (src-swift)",
+      "program": "${workspaceFolder:set-main-display}/src-swift/.build/release/src-swift",
+      "args": [],
+      "cwd": "${workspaceFolder:set-main-display}/src-swift",
+      "preLaunchTask": "swift: Build Release src-swift (src-swift)"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug set-main-display (src-swift)",
+      "program": "${workspaceFolder:set-main-display}/src-swift/.build/debug/set-main-display",
+      "args": [],
+      "cwd": "${workspaceFolder:set-main-display}/src-swift",
+      "preLaunchTask": "swift: Build Debug set-main-display (src-swift)"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Release set-main-display (src-swift)",
+      "program": "${workspaceFolder:set-main-display}/src-swift/.build/release/set-main-display",
+      "args": [],
+      "cwd": "${workspaceFolder:set-main-display}/src-swift",
+      "preLaunchTask": "swift: Build Release set-main-display (src-swift)"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug hoveddisplay (src-swift)",
+      "program": "${workspaceFolder:set-main-display}/src-swift/.build/debug/hoveddisplay",
+      "args": [],
+      "cwd": "${workspaceFolder:set-main-display}/src-swift",
+      "preLaunchTask": "swift: Build Debug hoveddisplay (src-swift)"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Release hoveddisplay (src-swift)",
+      "program": "${workspaceFolder:set-main-display}/src-swift/.build/release/hoveddisplay",
+      "args": [],
+      "cwd": "${workspaceFolder:set-main-display}/src-swift",
+      "preLaunchTask": "swift: Build Release hoveddisplay (src-swift)"
+    }
+  ]
 }
