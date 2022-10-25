@@ -1,4 +1,4 @@
-# Set Main Display
+# hoveddisplay
 
 A way to progmatically change main display on macos. Swift CLI and Raycast extension both included
 
