@@ -47,37 +47,54 @@ struct Display: Encodable {
 }
 
 func getDisplays() -> [Display] {
-    let screenCountPtr = UnsafeMutablePointer<UInt32>.allocate(capacity: 4)
+    let screenCountPtr = UnsafeMutablePointer<CGDisplayCount>.allocate(capacity: 1)
     CGGetOnlineDisplayList(UINT32_MAX, nil, screenCountPtr)
     var displays = [Display]()
     let mainDisplay = CGMainDisplayID()
+    let mainUUID = CFUUIDCreateString(kCFAllocatorDefault, CGDisplayCreateUUIDFromDisplayID(mainDisplay).takeRetainedValue())
 
-    // Screen ids start from 1 (idk why)
-    let screenCount = screenCountPtr.pointee + 1
-    for i in 1 ..< screenCount {
-        let displayRect = CGDisplayBounds(i)
-        var newDisplay = Display(id: i, rect: displayRect)
+    let screenCount = screenCountPtr.pointee
+    let screenList = UnsafeMutablePointer<CGDirectDisplayID>.allocate(capacity: Int(screenCount))
 
-        if i == mainDisplay {
-            newDisplay.isMain = true
+    CGGetOnlineDisplayList(UINT32_MAX, screenList, screenCountPtr)
+
+    let bufferPointer = UnsafeBufferPointer(start: screenList, count: Int(screenCount))
+
+    for (_, value) in bufferPointer.enumerated() {
+        let displayRect = CGDisplayBounds(value)
+        var newDisplay = Display(id: value, rect: displayRect)
+
+        let displayUUID = CGDisplayCreateUUIDFromDisplayID(value)
+        if displayUUID == nil {
+            newDisplay.uuid = "Unknown" as CFString
+        } else {
+            // char curScreenUUID[UUID_SIZE];
+            let uuid = CFUUIDCreateString(kCFAllocatorDefault, displayUUID?.takeRetainedValue())
+
+            if uuid != nil {
+                newDisplay.uuid = uuid!
+
+                if uuid == mainUUID {
+                    newDisplay.isMain = true
+                }
+
+            } else {
+                newDisplay.uuid = "Unknown" as CFString
+            }
         }
 
-        // char curScreenUUID[UUID_SIZE];
-        let uuid = CFUUIDCreateString(kCFAllocatorDefault, CGDisplayCreateUUIDFromDisplayID(i).takeRetainedValue())
-
-        if uuid != nil {
-            newDisplay.uuid = uuid!
-        }
-
-        if CGDisplayIsBuiltin(i) != 0 {
+        if CGDisplayIsBuiltin(value) != 0 {
             newDisplay.type = "Built-in Display"
         } else {
-            let size = CGDisplayScreenSize(i)
+            let size = CGDisplayScreenSize(value)
             let diagonal = round(sqrt((size.width * size.width) + (size.height * size.height)) / 25.4) // 25.4mm in an inch
             newDisplay.type = "\(diagonal) inch Monitor"
         }
 
-        displays.append(newDisplay)
+        let exists = displays.first(where: { $0.uuid == newDisplay.uuid })
+        if exists == nil, newDisplay.uuid != "Unknown" as CFString {
+            displays.append(newDisplay)
+        }
     }
 
     screenCountPtr.deallocate()
